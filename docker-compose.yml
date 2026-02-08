@@ -1,0 +1,16 @@
+services:
+  example-nodejs:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 3500:3500
+    networks:
+      - default
+      - pay_paynet
+    tty: true
+    stdin_open: true
+
+networks:
+  pay_paynet:
+    external: true

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demostración de Widget de Pago - Coffee Pay</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <h1 style="margin-bottom: 2rem;">Integración de Gateway Coffee Pay</h1>
+
+    <div class="container">
+        <!-- SECCIÓN DE PRODUCTOS (PAGO SIMPLE) -->
+        <div class="section">
+            <h2>Productos (Simple)</h2>
+            <div id="products-container"></div>
+        </div>
+
+        <!-- SECCIÓN DE SUSCRIPCIONES -->
+        <div class="section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 style="margin: 0;">Suscripciones</h2>
+                <a href="/create-plan.html" class="add-link">+ Crear Nuevo Plan</a>
+            </div>
+            <div id="plans-container">
+                <!-- Se cargan dinámicamente -->
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE DATOS DEL PAGADOR (OPCIONAL) -->
+        <div class="section" style="grid-column: 1 / -1;">
+            <h2>Datos del Cliente (Pre-llenado Opcional)</h2>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 1.5rem;">
+                Si el comercio ya tiene estos datos, puede enviarlos al widget para que el cliente no tenga que
+                escribirlos de nuevo.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                <div>
+                    <label
+                        style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Nombre</label>
+                    <input type="text" id="payerName" placeholder="Ej: Juan"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label
+                        style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Apellido</label>
+                    <input type="text" id="payerLastname" placeholder="Ej: Pérez"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label
+                        style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Email</label>
+                    <input type="email" id="payerEmail" placeholder="Ej: juan@mail.com"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label
+                        style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Teléfono</label>
+                    <input type="text" id="payerPhoneNumber" placeholder="Ej: 3001234567"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Tipo
+                        Documento</label>
+                    <select id="payerDocumentTypeId"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        <option value="">Seleccione...</option>
+                        <option value="9f3a0d5a-5931-41ee-ba88-445a9825680e">Cédula de ciudadanía (CC)</option>
+                        <option value="c36a4de7-c94c-4195-a28a-524608043348">Cédula de extranjería (CE)</option>
+                        <option value="1fc6e645-b962-4618-a7e5-4b5611a44b91">NIT</option>
+                        <option value="cc2d5a32-3379-44d7-9a20-e1e0127d04be">Tarjeta de identidad (TI)</option>
+                        <option value="a080eff9-4e7f-4eaf-9a70-52d46d8c3cff">Pasaporte (PAS)</option>
+                        <option value="a1519fa1-9a1b-494c-8d69-e3b62f5619b9">Registro civil (RC)</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Doc.
+                        Número</label>
+                    <input type="text" id="payerDocumentNumber" placeholder="Ej: 12345678"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label
+                        style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Dirección</label>
+                    <input type="text" id="payerAddress" placeholder="Ej: Calle 123 #45-67"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="display:block; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">Código
+                        Postal</label>
+                    <input type="text" id="payerPostalCode" placeholder="Ej: 050001"
+                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="signature-info" id="debug-log">
+        <b>Debug Log:</b> Esperando acción...
+    </div>
+
+    <script src="/script.js" defer></script>
+</body>
+
+</html>

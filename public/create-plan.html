@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Plan de Suscripción - Coffee Pay</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Crear Nuevo Plan de Suscripción</h1>
+
+    <div class="container" style="display: block;">
+        <div class="section form-container" style="margin: 0 auto;">
+            <form id="create-plan-form">
+                <div class="form-group">
+                    <label for="name">Nombre del Plan</label>
+                    <input type="text" id="name" name="name" required placeholder="Ej: Plan Premium Mensual">
+                </div>
+
+                <div class="form-group">
+                    <label for="reference">Referencia (Única)</label>
+                    <input type="text" id="reference" name="reference" required placeholder="Ej: PLAN-PRO-001">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <textarea id="description" name="description" required
+                        placeholder="Describe los beneficios del plan..."></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="price">Precio</label>
+                        <input type="number" id="price" name="price" required placeholder="15000">
+                    </div>
+                    <div class="form-group">
+                        <label for="currencyId">Moneda (ID)</label>
+                        <select id="currencyId" name="currencyId" required>
+                            <option value="988edfd9-1407-451b-b9ca-857f2858f95d">COP - Pesos Colombianos</option>
+                            <option value="3fcc396f-a848-4cd1-b4c8-1956e3c5fe13">USD - Dólares</option>
+                            <option value="ae88346c-1310-430b-a5d9-89116c6fabf9">EUR - Euros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="displayInterval">Frecuencia de Cobro</label>
+                        <select id="displayInterval" required>
+                            <option value="monthly-1">Mensual</option>
+                            <option value="monthly-3">Trimestral (Cada 3 meses)</option>
+                            <option value="monthly-6">Semestral (Cada 6 meses)</option>
+                            <option value="yearly-1">Anual</option>
+                            <option value="daily-1">Diario</option>
+                            <option value="weekly-1">Semanal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="freeDays">Días de Prueba Gratis</label>
+                        <input type="number" id="freeDays" name="freeDays" value="0" min="0">
+                    </div>
+                </div>
+
+                <div class="form-group"
+                    style="display: flex; align-items: center; gap: 10px; background: #f8fafc; padding: 10px; border-radius: 6px;">
+                    <input type="checkbox" id="allowProrate" name="allowProrate" style="width: auto;">
+                    <label for="allowProrate" style="margin-bottom: 0;">¿Habilitar Prorrateo? (Cobro en día
+                        específico)</label>
+                </div>
+
+                <div class="form-group" id="billingDayGroup" style="display: none;">
+                    <label for="billingDay">Día de Cobro Mensual (1-31)</label>
+                    <input type="number" id="billingDay" name="billingDay" value="1" min="1" max="31">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="redirectUrl">URL de Redirección (Éxito)</label>
+                        <input type="url" id="redirectUrl" name="redirectUrl" required
+                            placeholder="https://tuweb.com/gracias">
+                    </div>
+                    <div class="form-group">
+                        <label for="urlBack">URL de Retorno (Error/Cancelar)</label>
+                        <input type="url" id="urlBack" name="urlBack" required placeholder="https://tuweb.com/pago">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="pay-button">Guardar Plan vía SDK</button>
+                </div>
+            </form>
+
+            <div id="status-message" style="margin-top: 1rem; font-weight: bold; text-align: center;"></div>
+
+            <a href="/" class="btn-secondary">← Volver al Listado</a>
+        </div>
+    </div>
+
+    <script>
+        // Lógica para mostrar/ocultar día de cobro
+        document.getElementById('allowProrate').addEventListener('change', function (e) {
+            const group = document.getElementById('billingDayGroup');
+            group.style.display = e.target.checked ? 'block' : 'none';
+            document.getElementById('billingDay').required = e.target.checked;
+        });
+    </script>
+    <script src="/create-plan.js"></script>
+</body>
+
+</html>
