@@ -1,26 +1,25 @@
-FROM node:22-slim
+FROM node:20-alpine
 
+# Instala dependencias del sistema necesarias
+RUN apk add --no-cache tzdata bash git
+
+# Define el directorio de trabajo
 WORKDIR /app
 
-# Install basic development tools if needed
-# RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y tzdata && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Instalar NestJS CLI globalmente
+# Instala Nest CLI globalmente
 RUN npm install -g @nestjs/cli
 
-# Copiar los archivos de configuración (package.json y package-lock.json)
+# Copia solo package.json y package-lock.json primero para aprovechar la cache
 COPY package*.json ./
 
-# Instalar dependencias del proyecto
+# Instala todas las dependencias (incluyendo dev)
 RUN npm install
 
-# Copiar el resto del código fuente al contenedor
+# Copia el resto del código fuente (pero en dev se montará con volumes)
 COPY . .
 
-# Exponer el puerto en el que corre NestJS
+# Expone el puerto usado por NestJS
 EXPOSE 3500
 
-# The rest will be handled via volumes in docker-compose for live development
+# Comando por defecto: contenedor en espera (para entrar manualmente)
 CMD ["tail", "-f", "/dev/null"]

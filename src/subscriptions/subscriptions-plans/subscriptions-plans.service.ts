@@ -6,10 +6,12 @@ import { CoffeeSDK } from 'coffee-pay-sdk';
 
 @Injectable()
 export class SubscriptionsPlansService {
-  constructor(private readonly coffeeSDK: CoffeeSDK) { }
+  constructor(private readonly coffeeSDK: CoffeeSDK) {}
 
   async create(createSubscriptionsPlanDto: CreateSubscriptionsPlanDto) {
-    return await this.coffeeSDK.subscriptionsPlans.create(createSubscriptionsPlanDto);
+    return await this.coffeeSDK.subscriptionsPlans.create(
+      createSubscriptionsPlanDto,
+    );
   }
 
   async findAll() {
@@ -20,8 +22,14 @@ export class SubscriptionsPlansService {
     return await this.coffeeSDK.subscriptionsPlans.get(id);
   }
 
-  async update(id: string, updateSubscriptionsPlanDto: UpdateSubscriptionsPlanDto) {
-    return await this.coffeeSDK.subscriptionsPlans.update(id, updateSubscriptionsPlanDto);
+  async update(
+    id: string,
+    updateSubscriptionsPlanDto: UpdateSubscriptionsPlanDto,
+  ) {
+    return await this.coffeeSDK.subscriptionsPlans.update(
+      id,
+      updateSubscriptionsPlanDto,
+    );
   }
 
   async remove(id: string) {

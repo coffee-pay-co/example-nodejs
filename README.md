@@ -39,7 +39,7 @@ Este proyecto es una implementación de referencia que demuestra cómo integrar 
 ### Usando Docker (Recomendado)
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 El servidor estará disponible en [http://localhost:3500](http://localhost:3500).
 

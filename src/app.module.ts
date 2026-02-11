@@ -28,9 +28,9 @@ import { PaymentsModule } from './payments/payments.module';
 
     ProductsModule,
     CoffeeModule,
-    PaymentsModule
+    PaymentsModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

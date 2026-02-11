@@ -6,9 +6,34 @@ import { Product } from './entities/product.entity';
 @Injectable()
 export class ProductsService {
   private products: Product[] = [
-    { id: 1, reference: 'REF-001', name: 'Licencia Basic', total: 100000, currency: 'COP', symbol: '$', description: 'Licencia básica para pequeñas empresas' },
-    { id: 2, reference: 'REF-002', name: 'Licencia Enterprise', total: 150000, currency: 'COP', symbol: '$', description: 'Acceso total por tiempo ilimitado. Pago único sin recurrencia.' },
-    { id: 3, reference: 'REF-003', name: 'Consultoría Express', total: 50000, currency: 'COP', symbol: '$', description: '1 hora de consultoría técnica especializada.' },
+    {
+      id: 1,
+      reference: 'REF-001',
+      name: 'Licencia Basic',
+      total: 100000,
+      currency: 'COP',
+      symbol: '$',
+      description: 'Licencia básica para pequeñas empresas',
+    },
+    {
+      id: 2,
+      reference: 'REF-002',
+      name: 'Licencia Enterprise',
+      total: 150000,
+      currency: 'COP',
+      symbol: '$',
+      description:
+        'Acceso total por tiempo ilimitado. Pago único sin recurrencia.',
+    },
+    {
+      id: 3,
+      reference: 'REF-003',
+      name: 'Consultoría Express',
+      total: 50000,
+      currency: 'COP',
+      symbol: '$',
+      description: '1 hora de consultoría técnica especializada.',
+    },
   ];
   private nextId = 4;
 

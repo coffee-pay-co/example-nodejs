@@ -1,46 +1,52 @@
-import { IsBoolean, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export class CreateSubscriptionsPlanDto {
-    @IsOptional()
-    @IsUUID()
-    accountId?: string;
+  @IsOptional()
+  @IsUUID()
+  accountId?: string;
 
-    @IsString()
-    name: string;
+  @IsString()
+  name: string;
 
-    @IsString()
-    reference: string;
+  @IsString()
+  reference: string;
 
-    @IsNumber()
-    price: number;
+  @IsNumber()
+  price: number;
 
-    @IsUUID()
-    currencyId: string;
+  @IsUUID()
+  currencyId: string;
 
-    @IsString()
-    interval: 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
+  @IsString()
+  interval: 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
 
-    @IsNumber()
-    intervalCount: number;
+  @IsNumber()
+  intervalCount: number;
 
-    @IsNumber()
-    billingDay: number;
+  @IsNumber()
+  billingDay: number;
 
-    @IsNumber()
-    freeDays: number;
+  @IsNumber()
+  freeDays: number;
 
-    @IsBoolean()
-    allowProrate: boolean;
+  @IsBoolean()
+  allowProrate: boolean;
 
-    @IsString()
-    redirectUrl: string;
+  @IsString()
+  redirectUrl: string;
 
-    @IsString()
-    description: string;
+  @IsString()
+  description: string;
 
-    @IsBoolean()
-    status: boolean;
+  @IsBoolean()
+  status: boolean;
 
-    @IsString()
-    urlBack: string;
+  @IsString()
+  urlBack: string;
 }

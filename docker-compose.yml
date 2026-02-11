@@ -7,10 +7,10 @@ services:
       - 3500:3500
     networks:
       - default
-      - pay_paynet
+      - coffee-payments-gateway_paynet
     tty: true
     stdin_open: true
 
 networks:
-  pay_paynet:
+  coffee-payments-gateway_paynet:
     external: true

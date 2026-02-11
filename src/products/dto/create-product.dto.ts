@@ -2,28 +2,28 @@ import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateProductDto {
-	@IsString()
-	@IsNotEmpty()
-	reference: string;
+  @IsString()
+  @IsNotEmpty()
+  reference: string;
 
-	@IsString()
-	@IsNotEmpty()
-	name: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-	@IsString()
-	@IsNotEmpty()
-	currency: string;
+  @IsString()
+  @IsNotEmpty()
+  currency: string;
 
-	@Type(() => Number)
-	@IsNumber()
-	@IsNotEmpty()
-	total: number;
+  @Type(() => Number)
+  @IsNumber()
+  @IsNotEmpty()
+  total: number;
 
-	@IsString()
-	@IsNotEmpty()
-	symbol: string;
+  @IsString()
+  @IsNotEmpty()
+  symbol: string;
 
-	@IsString()
-	@IsNotEmpty()
-	description: string;
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 }
