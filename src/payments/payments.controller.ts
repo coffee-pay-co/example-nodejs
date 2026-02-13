@@ -1,10 +1,13 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { CryptoUtils } from 'coffee-pay-sdk';
+import { CoffeeSDK, CryptoUtils } from 'coffee-pay-sdk';
 
 @Controller('payments')
 export class PaymentsController {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly coffeeSDK: CoffeeSDK,
+  ) {}
 
   @Get('signature')
   generateSignature(@Query('timestamp') timestamp: string) {
@@ -18,6 +21,23 @@ export class PaymentsController {
     );
 
     return { signature };
+  }
+
+  @Get('methods')
+  async getPaymentMethods() {
+    try {
+      return await this.coffeeSDK.paymentMethods.list();
+    } catch (error) {
+      console.error('Backend Error:', error.message);
+      if (error.response) {
+        console.error(
+          'Backend Response Data:',
+          JSON.stringify(error.response.data),
+        );
+        console.error('Backend Response Status:', error.response.status);
+      }
+      throw error;
+    }
   }
 
   @Get('config')

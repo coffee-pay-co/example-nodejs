@@ -120,3 +120,36 @@ h2 {
   background-color: #e2e8f0;
   border-color: #a0aec0;
 }
+
+.payment-methods-selection {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.payment-methods-selection h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.methods-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+}
+
+.method-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.method-item input {
+  cursor: pointer;
+}

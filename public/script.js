@@ -1,6 +1,7 @@
 // Script moved from index.html; loads products from backend and renders UI
 let accountKey = "";
 let currencyId = "";
+let availablePaymentMethods = [];
 
 async function initState() {
   try {
@@ -8,6 +9,17 @@ async function initState() {
     const config = await res.json();
     accountKey = config.accountKey;
     currencyId = config.currencyId;
+
+    // Fetch available payment methods from backend (via SDK)
+    const pmRes = await fetch('/api/payments/methods');
+    if (!pmRes.ok) {
+      const errorText = await pmRes.text();
+      console.error('Error fetching methods:', pmRes.status, errorText);
+      log('Error obteniendo métodos: ' + pmRes.status);
+      return;
+    }
+    const pmData = await pmRes.json();
+    availablePaymentMethods = pmData.data || [];
 
     // Dynamically load widget script
     if (config.scriptUrl) {
@@ -63,11 +75,31 @@ function renderProducts(products) {
     const div = document.createElement('div');
     div.className = 'card';
     const price = `${p.symbol}${Number(p.total).toLocaleString()} ${p.currency}`;
+
+    // Generate payment methods checkboxes
+    let methodsHtml = '';
+    if (availablePaymentMethods.length > 0) {
+      methodsHtml = `
+        <div class="payment-methods-selection">
+          <h4>Métodos permitidos:</h4>
+          <div class="methods-list">
+            ${availablePaymentMethods.map(m => `
+              <label class="method-item">
+                <input type="checkbox" name="methods-${p.id}" value="${m.id}" checked>
+                ${m.name}
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     div.innerHTML = `
       <h3>${p.name}</h3>
       <div class="price">${price}</div>
       <div class="desc">${p.description}</div>
-      <button class="pay-button" onclick="paySimple(${p.total}, '${p.name}')">Comprar Ahora</button>
+      ${methodsHtml}
+      <button class="pay-button" onclick="paySimple(${p.id}, ${p.total}, '${p.name}')">Comprar Ahora</button>
     `;
     container.appendChild(div);
   });
@@ -112,11 +144,17 @@ function log(msg) {
 }
 
 // Payment actions
-async function paySimple(total, name) {
+async function paySimple(productId, total, name) {
   const timestamp = Math.floor(Date.now() / 1000);
   const signature = await generateSignature(timestamp);
   const reference = 'REF-' + Math.floor(Math.random() * 1000000);
-  log(`Iniciando pago simple: ${name} ($${total})`);
+
+  // Collect selected payment methods for this specific product
+  const selectedMethods = Array.from(document.querySelectorAll(`input[name="methods-${productId}"]:checked`))
+    .map(input => input.value);
+
+  log(`Iniciando pago simple: ${name} ($${total}) con ${selectedMethods.length || 'todos los'} métodos`);
+
   const payerData = {
     payerName: document.getElementById('payerName')?.value,
     payerLastname: document.getElementById('payerLastname')?.value,
@@ -141,6 +179,7 @@ async function paySimple(total, name) {
     currencyId: currencyId,
     reference: reference,
     description: `Compra de ${name}`,
+    paymentMethods: selectedMethods, // Send selected methods
     timestamp: timestamp,
     signature: signature,
     ...payerData
