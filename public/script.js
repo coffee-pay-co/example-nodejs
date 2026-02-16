@@ -163,15 +163,12 @@ async function paySimple(productId, total, name) {
     payerDocumentTypeId: document.getElementById('payerDocumentTypeId')?.value,
     payerDocumentNumber: document.getElementById('payerDocumentNumber')?.value,
     payerAddress: document.getElementById('payerAddress')?.value,
+    payerAddress: document.getElementById('payerAddress')?.value,
     payerPostalCode: document.getElementById('payerPostalCode')?.value,
   };
 
-  if (typeof GatewayWidget === 'undefined') {
-    log('Widget no disponible (demo).');
-    return;
-  }
-
-  GatewayWidget.open({
+  const redirectUrl = document.getElementById('redirectUrl')?.value;
+  const checkoutOptions = {
     isSubscription: false,
     total: total,
     subtotal: total,
@@ -183,7 +180,13 @@ async function paySimple(productId, total, name) {
     timestamp: timestamp,
     signature: signature,
     ...payerData
-  }, {
+  };
+
+  if (redirectUrl) {
+    checkoutOptions.redirectUrl = redirectUrl;
+  }
+
+  GatewayWidget.open(checkoutOptions, {
     onSuccess: (data) => log('✅ Pago aprobado: ' + data.id),
     onError: (err) => log('❌ Error: ' + err.message)
   });
@@ -201,15 +204,12 @@ async function paySubscription(planId, name) {
     payerDocumentTypeId: document.getElementById('payerDocumentTypeId')?.value,
     payerDocumentNumber: document.getElementById('payerDocumentNumber')?.value,
     payerAddress: document.getElementById('payerAddress')?.value,
+    payerAddress: document.getElementById('payerAddress')?.value,
     payerPostalCode: document.getElementById('payerPostalCode')?.value,
   };
 
-  if (typeof GatewayWidget === 'undefined') {
-    log('Widget no disponible (demo).');
-    return;
-  }
-
-  GatewayWidget.open({
+  const redirectUrl = document.getElementById('redirectUrl')?.value;
+  const checkoutOptions = {
     isSubscription: true,
     subscriptionPlanId: planId,
     subscriptionEmail: payerData.payerEmail || "cliente@example.com",
@@ -218,7 +218,13 @@ async function paySubscription(planId, name) {
     timestamp: timestamp,
     signature: signature,
     ...payerData
-  }, {
+  };
+
+  if (redirectUrl) {
+    checkoutOptions.redirectUrl = redirectUrl;
+  }
+
+  GatewayWidget.open(checkoutOptions, {
     onSuccess: (data) => log('✅ Suscripción creada: ' + data.id),
     onError: (err) => log('❌ Error: ' + err.message)
   });
