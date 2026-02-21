@@ -11,6 +11,7 @@ import { SubscriptionsPlansModule } from './subscriptions/subscriptions-plans/su
 import { ProductsModule } from './products/products.module';
 import { CoffeeModule } from './coffee/coffee.module';
 import { PaymentsModule } from './payments/payments.module';
+import { WebhooksModule } from './webhooks/webhooks.module';
 
 @Module({
   imports: [
@@ -29,8 +30,9 @@ import { PaymentsModule } from './payments/payments.module';
     ProductsModule,
     CoffeeModule,
     PaymentsModule,
+    WebhooksModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
